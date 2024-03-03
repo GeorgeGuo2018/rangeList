@@ -3,31 +3,44 @@
 ## Range
 ### 1. initial a range
 ```bash
-Range.NewRange()
+//if end less than begin,this func would return a err
+func NewRange(begin, end int) (Range, error)
 ```
 
 ### 2. judege whether two ranges are equal
 ```bash
-Range.IsEqual(rangeA,rangeB Range)
+//if two Range have the same begin and end,the two Range is equal
+func (arange Range) IsEqual(rg Range) bool
+```
+
+### 3. get the value of a range in type of slice
+```bash
+func (arange Range) Value() []int
 ```
 
 ## RangeList
 ### 1. initial a range list
 ```bash
-RangeList.NewRangeList()
+func NewRangeList(elems []Range) *RangeList
 ```
 
 ### 2. add a range into range list
 ```bash
-RangeList.Add(range Range)
+func (rangeList *RangeList) Add(arange Range) *RangeList
 ```
 
 ### 3. remove a range from range list
 ```bash
-RangeList.Remove(range Range)
+func (rangeList *RangeList) Remove(arange Range) *RangeList 
 ```
 
 ### 4. convert a range list to string
 ```bash
-RangeList.ToString()
+func (rangeList *RangeList) ToString() string
+```
+
+### 5. judege whether two rangeLists are equal
+```bash
+//if two RangeList have the same Range elem set,the two RangeList is equal 
+func (rangeList *RangeList) IsEqual(rgList *RangeList) bool
 ```

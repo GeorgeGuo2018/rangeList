@@ -1,15 +1,17 @@
 package types
 
 import (
+	"fmt"
 	"testing"
 )
 
 func TestNewRange(t *testing.T) {
 	_, err := NewRange(2, 3)
 	if err != nil {
+		fmt.Print("2")
 		t.Errorf("NewRange(2, 3) failed, expected err nil, got %s", err)
 	}
-
+	fmt.Print("3")
 	_, err = NewRange(2, 2)
 	if err == nil {
 		t.Errorf("NewRange(2, 2) failed, expected err, got nil")
@@ -18,6 +20,25 @@ func TestNewRange(t *testing.T) {
 	_, err = NewRange(2, 1)
 	if err == nil {
 		t.Errorf("NewRange(2, 1) failed, expected err, got nil")
+	}
+}
+
+func TestEqual(t *testing.T) {
+	testRange := Range{0, 3}
+	testCases := []struct {
+		Range
+		expected bool
+	}{
+		{Range{0, 2}, false},
+		{Range{-1, 1}, false},
+		{Range{0, 3}, true},
+		{Range{-2, 3}, false},
+	}
+
+	for _, tc := range testCases {
+		if tc.Range.IsEqual(testRange) != tc.expected {
+			t.Errorf("%+vEqual(%+v) = %t; expected %t", tc.Range, testRange, tc.Range.IsEqual(testRange), tc.expected)
+		}
 	}
 }
 

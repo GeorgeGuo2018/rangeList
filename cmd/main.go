@@ -11,10 +11,11 @@ import (
 func main() {
 	// start pprof server
 	http.Handle("/debug", pprof.Handler("rangelist"))
-	//todo
-	rgA := types.NewRange(0, 5)
-	rgB := types.NewRange(-3, 7)
-	rgC := types.NewRange(5, 9)
+
+	//the following is just a example
+	rgA, _ := types.NewRange(0, 5)
+	rgB, _ := types.NewRange(-3, 7)
+	rgC, _ := types.NewRange(5, 9)
 
 	rgList := types.NewRangeList()
 	rgList.Add(rgA)

@@ -8,14 +8,17 @@ type RangeList struct {
 	elems []Range
 }
 
-func NewRangeList() *RangeList {
+func NewRangeList(elems []Range) *RangeList {
 	rangeList := make([]Range, 0)
+	for _, elem := range elems {
+		rangeList = append(rangeList, elem)
+	}
 	return &RangeList{elems: rangeList}
 }
 
 func (rangeList *RangeList) Add(arange Range) *RangeList {
 	if rangeList == nil {
-		rangeList = NewRangeList()
+		rangeList = NewRangeList(nil)
 	}
 	if rangeList.elems == nil {
 		rangeList.elems = make([]Range, 0)
@@ -26,7 +29,7 @@ func (rangeList *RangeList) Add(arange Range) *RangeList {
 
 func (rangeList *RangeList) Remove(arange Range) *RangeList {
 	if rangeList == nil {
-		return NewRangeList()
+		return NewRangeList(nil)
 	}
 	if rangeList.elems == nil {
 		rangeList.elems = make([]Range, 0)
@@ -65,4 +68,28 @@ func (rangeList *RangeList) ToString() string {
 	//remove the beginning space
 	result = result[1:]
 	return result
+}
+
+func (rangeList *RangeList) IsEqual(rgList *RangeList) bool {
+	if len(rangeList.elems) != len(rgList.elems) {
+		return false
+	}
+
+	rl2 := NewRangeList(rgList.elems)
+	for _, rg := range rangeList.elems {
+		found := false
+		for _, elem := range rl2.elems {
+			if rg.IsEqual(elem) {
+				found = true
+				break
+			}
+		}
+		if found {
+			rl2.Remove(rg)
+		} else {
+			return false
+		}
+	}
+
+	return true
 }
